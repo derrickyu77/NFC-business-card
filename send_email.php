@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
     // Add additional headers
-    $headers .= "From: no-reply@yourwebsite.com" . "\r\n"; // Replace with your website's domain
+    $headers .= "From: file:///C:/Users/User/Downloads/NFC_index.html" . "\r\n"; // Replace with your website's domain
 
     // Send email
     if (mail($to, $subject, $message, $headers)) {
