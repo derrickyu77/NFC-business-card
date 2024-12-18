@@ -1,11 +1,20 @@
 <?php
+// Enable error reporting for debugging
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// CORS headers to allow requests from different origins
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the phone number and booking details from the form
     $userPhone = $_POST['phone'];
     $bookingDetails = $_POST['booking_details'];
 
     // Prepare email details
-    $to = "derrickyu77@gmail.com"; // Replace with your email address
+    $to = "your-email@example.com"; // Replace with your email address
     $subject = "New Booking Request";
     $message = "
     <html>
