@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bookingDetails = $_POST['booking_details'];
 
     // Prepare email details
-    $to = "your-email@example.com"; // Replace with your email address
+    $to = "derrickyu77@gmail.com"; // Replace with your email address
     $subject = "New Booking Request";
     $message = "
     <html>
