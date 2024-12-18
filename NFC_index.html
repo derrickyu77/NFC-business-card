@@ -155,14 +155,35 @@
                 return;
             }
 
-            // If validation passes, proceed
-            alert(`Booking Sent:\nDate: ${selectedDate}\nTime: ${selectedTime}\nDescription: ${description}`);
-            // You can use fetch() or email API to send the data.
+            // Prepare booking details
+            const bookingDetails = `Date: ${selectedDate}, Time: ${selectedTime}, Description: ${description}`;
+
+            // Get the user's phone number (this could be fetched dynamically if needed)
+            const userPhone = '+1234567890'; // Replace with dynamic phone number if necessary
+
+            // Send booking data to the backend (using AJAX)
+            fetch('send_sms.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `phone=${encodeURIComponent(userPhone)}&booking_details=${encodeURIComponent(bookingDetails)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Booking sent and notification sent to your phone!');
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                alert('Failed to send notification: ' + error);
+            });
         });
 
         // Restrict date input to allow only today or future dates
         document.getElementById('bookingDate').setAttribute('min', new Date().toISOString().split('T')[0]);
     </script>
-
 </body>
 </html>
