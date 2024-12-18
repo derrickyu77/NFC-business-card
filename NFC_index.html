@@ -15,14 +15,13 @@
             border: none;
             border-radius: 15px;
         }
-        .rounded-circle {
-            border: 5px solid #fff;
-        }
-        iframe {
-            border-radius: 10px;
-        }
         .form-control, .btn {
             border-radius: 10px;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: -10px;
         }
     </style>
 </head>
@@ -30,7 +29,7 @@
 
     <div class="container my-5">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <!-- Booking System -->
                 <div class="card">
                     <div class="card-header bg-info text-white text-center">
@@ -45,6 +44,7 @@
                             <div class="mb-3">
                                 <label for="bookingTime" class="form-label">Select Time</label>
                                 <input type="time" class="form-control" id="bookingTime" required>
+                                <div id="errorMessage" class="error-message"></div>
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
@@ -59,13 +59,14 @@
     </div>
 
     <script>
-        // Booking Form Submission
+        // Booking Form Validation and Submission
         document.getElementById('bookingForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
             const dateInput = document.getElementById('bookingDate');
             const timeInput = document.getElementById('bookingTime');
             const description = document.getElementById('description').value;
+            const errorMessage = document.getElementById('errorMessage');
 
             const selectedDate = dateInput.value;
             const selectedTime = timeInput.value;
@@ -75,15 +76,23 @@
             const currentDate = now.toISOString().split('T')[0];
             const currentTime = now.toTimeString().slice(0, 5); // Format: HH:MM
 
+            // Clear previous error message
+            errorMessage.textContent = "";
+
             // Validate the selected date and time
+            if (!selectedDate || !selectedTime) {
+                errorMessage.textContent = "Please select both a valid date and time.";
+                return;
+            }
+
             if (selectedDate < currentDate || 
                 (selectedDate === currentDate && selectedTime <= currentTime)) {
-                alert('You cannot book a past date or time. Please select a valid slot.');
+                errorMessage.textContent = "You cannot book a past date or time. Please select a valid slot.";
                 dateInput.focus();
                 return;
             }
 
-            // Send Booking Data
+            // If validation passes, proceed
             alert(`Booking Sent:\nDate: ${selectedDate}\nTime: ${selectedTime}\nDescription: ${description}`);
             // You can use fetch() or email API to send the data.
         });
