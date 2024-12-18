@@ -162,7 +162,7 @@
             const userPhone = '+1234567890'; // Replace with dynamic phone number if necessary
 
             // Send booking data to the backend (using AJAX)
-            fetch('send_sms.php', {
+            fetch('send_email.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -172,13 +172,13 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    alert('Booking sent and notification sent to your phone!');
+                    alert('Booking sent and details sent to your email!');
                 } else {
                     alert('Error: ' + data.message);
                 }
             })
             .catch(error => {
-                alert('Failed to send notification: ' + error);
+                alert('Failed to send email: ' + error);
             });
         });
 
